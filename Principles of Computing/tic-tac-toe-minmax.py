@@ -22,29 +22,29 @@ def mm_move(board, player):
     of the given board and the second element is the desired move as a
     tuple, (row, col).
     """
-    " check state    
+    # check state    
     state = board.check_win()
-    " game over, return final score
+    # game over, return final score
     if (state != None):
         return SCORES[state], (-1, -1)
     max_score = -1
     max_move = None
-    " get all possible moves
+    # get all possible moves
     empty_squares = board.get_empty_squares()
     for empty_square in empty_squares:
         board_clone = board.clone()
-        " attempt one possible move
+        # attempt one possible move
         board_clone.move(empty_square[0], empty_square[1], player)
-        " recursive call minmax
+        # recursive call minmax
         result = mm_move(board_clone, provided.switch_player(player))
-        " store a best move
+        # store a best move
         curr_score = SCORES[player] * result[0]
         if curr_score == 1:
             return result[0], empty_square
         if max_move == None or curr_score > SCORES[player] * max_score:
             max_score = result[0]
             max_move = empty_square
-    " return best move
+    # return best move
     return max_score, max_move
 
 def move_wrapper(board, player, trials):
@@ -63,4 +63,3 @@ def move_wrapper(board, player, trials):
 
 #provided.play_game(move_wrapper, 1, False)        
 poc_ttt_gui.run_gui(3, provided.PLAYERO, move_wrapper, 1, False)
-#print mm_move(provided.TTTBoard(2, False, [[provided.EMPTY, provided.EMPTY], [provided.EMPTY, provided.EMPTY]]), provided.PLAYERO) 
