@@ -16,7 +16,7 @@ def bin_to_dec(bin_num):
         return 0
     else:
         sig_idx = None
-        for idx in range(0, length):
+        for idx in range(length):
             if '1' == bin_num[idx]:
                 sig_idx = idx
                 break;
@@ -33,10 +33,25 @@ def make_gray(length):
         previous_result = make_gray(length - 1)
         for number in previous_result:
             result.append('0' + number)
-        for number in previous_result.reverse():
+        for number in previous_result[::-1]:
             result.append('1' + number)
         return result
+    
+def gray_to_bin(gray_code):
+    bin_code = ''
+    sig_found = False
+    for idx in range(len(gray_code)):
+        if not sig_found:
+            bin_code += gray_code[idx]
+            if gray_code[idx] == '1':
+                sig_found = True
+        else:
+            bin_code += str(int(gray_code[idx]) ^ int(bin_code[idx - 1]))
+    return bin_code
+                
 
 #for string in make_binary(4):
 #    print bin_to_dec(string)
 print make_gray(3)
+for code in make_gray(3):
+    print bin_to_dec(gray_to_bin(code))
