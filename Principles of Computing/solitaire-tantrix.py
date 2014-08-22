@@ -170,8 +170,9 @@ class Tantrix:
         curr_index = self.tile_index[0]
         curr_value = self.get_code(curr_index)        
         curr_dir = curr_value.index(color)
+        loop_list = []
         while curr_value and curr_index != self.tile_index[0]:
-            loop_list = [curr_index]
+            loop_list.append(curr_index)
             curr_index = self.get_neighbor(curr_index, curr_dir)
             curr_value = self.get_node(curr_index)
             if curr_value.index(color) == curr_dir:
