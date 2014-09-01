@@ -50,14 +50,12 @@ def compute_in_degrees(digraph):
     Takes a directed graph digraph (represented as a dictionary)
     and computes the in-degrees for the nodes in the graph.
     """
-    values = digraph.values()
     ret = {}
     for key in digraph:
-        id_sum = 0
-        for curr_set in values:
-            if key in curr_set:
-                id_sum += 1
-        ret[key] = id_sum
+        ret[key] = 0
+    for key in digraph:
+        for _ in digraph[key]:
+            ret[_] += 1
     return ret
 
 def in_degree_distribution(digraph):
@@ -74,3 +72,4 @@ def in_degree_distribution(digraph):
         else:
             ret[in_degree_dict[key]] = 1
     return ret
+
